@@ -7,6 +7,8 @@ description: 创建和定制 Photo Moments 照片球网页。用户希望制作�
 
 作者：[Sherry小水](https://github.com/XshuiAi) · [项目地址](https://github.com/XshuiAi/photo-moments)
 
+适用宿主：豆包工作、WorkBuddy、Codex、Claude Code，以及具备 Agent Skills、文件读写和项目运行能力的 AI Agent。跨平台安装见 [安装指南](docs/INSTALL.md)，两个案例的效果演示见 [作品介绍](README.md)。
+
 ## 创建同款
 
 1. 使用本 Skill 内 `assets/template/` 的完整模板和素材，不凭描述重新生成页面，不省略图片或音乐。要求 Python 3.9+；基础网页无 npm 安装步骤。
