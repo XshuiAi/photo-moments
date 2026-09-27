@@ -96,3 +96,9 @@ Photo Moments · Sherry小水。第三方照片、人物作品与音乐的权利
 - https://music.apple.com/us/song/1689045588
 - https://www.epidemicsound.com/music/tracks/2d516c07-08ea-4393-9fa8-fff269ce613c/
 - https://music.apple.com/us/album/惡作劇/1442199094?i=1442199265
+
+## 2026-09-28 音乐更新
+
+- Amazon、Try、爱的主打歌：用户指定 [漠寒凛^0^的合集](https://www.douyin.com/video/7671998387843246218) 第 1、5、6 首，分别截取 4–22.5 秒、86.2–99 秒、100–114 秒，循环为 35 秒。
+- 撕咬进行曲：此前指定 [AI 漫剧专属 BGM 合集](https://www.douyin.com/video/7668969513057231083) 第 10 首，230–241 秒循环为 35 秒。
+- 仅记录素材来源与剪辑区间，不代表获得公开再分发授权；音频不属于 MIT 授权。

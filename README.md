@@ -6,7 +6,7 @@
 
 适用于 **豆包工作 · WorkBuddy · Codex · Claude Code** 等支持 Agent Skills、文件操作与项目运行的 AI Agent。
 
-[观看演示](#两种相册两种心动) · [制作同款](#开始制作同款) · [使用说明](#网页怎么用) · [修改自己的版本](#在同款基础上修改) · [下载 Skill](https://github.com/XshuiAi/photo-moments/releases/latest)
+[观看演示](#两种相册两种心动) · [制作同款](#开始制作同款) · [使用说明](#网页怎么用) · [修改自己的版本](#在同款基础上修改) · [下载 Skill](https://github.com/XshuiAi/photo-moments/releases/latest) · [豆包口令与分享](docs/DOUBAO.md)
 
 [![License: MIT](https://img.shields.io/badge/Code%20%26%20Docs-MIT-222222.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-6c785e.svg)](SKILL.md)
@@ -161,7 +161,7 @@ https://github.com/XshuiAi/photo-moments
 
 ### 6. 让实况照片动起来
 
-实况需要**一张静态照片和一段对应视频**。同时导入同名照片与 MOV/MP4 可配对；也可以点开照片后选择“关联实况视频”。关联成功后，点击实况按钮播放画面和原声。
+实况需要**一张静态照片和一段对应视频**。同时导入同名照片与 MOV/MP4 可配对；也可以点开照片后选择“关联实况视频”。视频先传也可以：点击左下角名字，在待关联视频中预览、选择对应照片并关联；多余视频可直接删除，相同内容重复上传会跳过。关联成功后，点击实况按钮播放画面和原声。
 
 只有一张 JPG/PNG 时没有动态部分。不同设备的 HEIC/HEVC 支持情况不同：macOS 本机可使用系统图片转换；视频转换需要 ffmpeg。不支持时，导出 JPG 与 H.264/AAC MP4 再导入即可。
 

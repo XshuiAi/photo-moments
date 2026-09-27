@@ -95,5 +95,60 @@
     "sourceURL": "https://music.apple.com/us/album/惡作劇/1442199094?i=1442199265",
     "sourceStart": 0,
     "sourceLength": 30
+  },
+  {
+    "id": "bite-march",
+    "name": "撕咬进行曲",
+    "theme": "drama",
+    "src": "assets/music-20260927/bite-march.m4a",
+    "duration": 35,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
+    "sourceStart": 230,
+    "sourceLength": 11,
+    "revision": "selected-original-20260928"
+  },
+  {
+    "id": "amazon-selected",
+    "name": "Amazon",
+    "theme": "drama",
+    "src": "assets/music-20260927/amazon-selected.m4a",
+    "duration": 35,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7671998387843246218",
+    "sourceStart": 4,
+    "sourceLength": 18.5,
+    "sourceNumber": 1,
+    "revision": "user-link-20260928"
+  },
+  {
+    "id": "try-selected",
+    "name": "Try",
+    "theme": "drama",
+    "src": "assets/music-20260927/try-selected.m4a",
+    "duration": 35,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7671998387843246218",
+    "sourceStart": 86.2,
+    "sourceLength": 12.8,
+    "sourceNumber": 5,
+    "revision": "user-link-20260928"
+  },
+  {
+    "id": "loves-main",
+    "name": "爱的主打歌",
+    "theme": "drama",
+    "src": "assets/music-20260927/loves-main.m4a",
+    "duration": 35,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7671998387843246218",
+    "sourceStart": 100,
+    "sourceLength": 14,
+    "sourceNumber": 6,
+    "revision": "user-link-20260928"
   }
 ]

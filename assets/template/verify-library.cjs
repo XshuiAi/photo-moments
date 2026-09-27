@@ -18,7 +18,7 @@ function context(state){
  today:()=> '2026-09-27',urlFor:()=> 'blob:test',library:[],activeOrbitId:'',album:{},records:[],pendingVideos:[],activeRecord:null,
  returnFocus:null,velocity:[],wheelSum:0,wheelDirection:0,wheelLast:0,
  db:null,openDB:async()=>({}),dbGet:async()=>state,checkpoints:[],announcements:[],saved:[],
- $:()=>({value:'',textContent:''}),rebuild(){},loadMusic(){},seedMusicCatalog:async()=>{},safeOpen(){},fingerprint:async image=>image.hash};
+ $:()=>({value:'',textContent:''}),rebuild(){},loadMusic(){},seedMusicCatalog:async()=>{},dedupePending:async items=>items,safeOpen(){},fingerprint:async image=>image.hash};
  c.checkpoint=async key=>c.checkpoints.push(key);
  c.announce=message=>c.announcements.push(message);
  c.save=async()=>{c.library=c.captureLibrary(c.library,c.activeOrbitId,{album:c.album,records:c.records,pendingVideos:c.pendingVideos});c.saved.push({activeId:c.activeOrbitId,orbits:c.library.map(c.cloneOrbit)});return true};

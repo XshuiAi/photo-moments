@@ -1,5 +1,15 @@
 # V1 测试记录
 
+## 2026-09-28 更新验证
+
+- 五组 Node 回归（verify、library、music、photo-management、live）通过；人物 8 首、旅行 4 首。
+- `python3 -m unittest discover -s tests -v`：8 项通过；`git diff --check` 通过。
+- 浏览器验证新 Amazon、Try、爱的主打歌均进入播放态，时长 35 秒。三组用户实况刷新后保留，可播放视频与未静音音轨；用户素材不进入模板。
+- 待关联列表支持预览、选择照片、关联和删除；视频内容去重回归通过。
+- 静态检查：HEIC 后备解码仅处理本次请求临时目录内的固定文件；外部文件名不作为命令或输出路径，无递归删除或 shell=True。复制脚本仍拒绝覆盖。
+- 音乐剪辑区间记录在 music-catalog.json 与 ATTRIBUTION.md；未声称完成听辨或独立版权审核。
+- 按用户要求不进行豆包实机测试；仓库继续私有，独立人工安全复核未完成。
+
 2026-09-27，本地 Python 3.9 / Node 26。
 
 - `python3 tests/test_create_project.py`：8 项通过。覆盖路径穿越、绝对路径、危险名称、已有目录、符号链接、安装目录内输出、校验失败、中断保留已有文件、重复创建与完整复制。

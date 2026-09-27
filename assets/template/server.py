@@ -101,6 +101,15 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 command = [(shutil.which("ffmpeg") or "ffmpeg"), "-nostdin", "-v", "error", "-protocol_whitelist", "file,pipe", "-i", str(source), "-map", "0:v:0", "-map", "0:a:0?", "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-threads", "2", "-preset", "fast", "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-movflags", "+faststart", "-fs", "157286400", str(output)]
             subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
+            if kind == "heic" and b"\xff\xda" not in output.read_bytes():
+                # Some HEIC variants produce a metadata-only JPEG through sips.
+                decoder = shutil.which("heif-convert")
+                if not decoder:
+                    raise ValueError("HEIC decoder unavailable; export JPEG from Photos")
+                output.unlink()  # exact output owned by this request
+                subprocess.run([decoder, str(source), str(output)], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
+                if b"\xff\xda" not in output.read_bytes():
+                    raise ValueError("Invalid JPEG output")
             if output.stat().st_size > limit:
                 raise ValueError("Converted file too large")
             self.reply(200, output.read_bytes(), "image/jpeg" if kind == "heic" else "video/mp4")

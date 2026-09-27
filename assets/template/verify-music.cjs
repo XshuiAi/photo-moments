@@ -12,14 +12,14 @@ for(let i=0;i<100;i++){const next=M.next(tracks,current,true,bag);assert.notEqua
 assert.equal(M.next([tracks[0]],'0',true,[]).track.id,'0');assert.equal(M.next([],null,true,[]).track,null);
 assert.equal(M.next(tracks,'5',false,[]).track.id,'0');assert.equal(M.bytes(album),8);
 const catalog=JSON.parse(fs.readFileSync('music-catalog.json'));
-assert.equal(catalog.filter(t=>t.theme==='drama').length,4);assert.equal(catalog.filter(t=>t.theme==='travel').length,4);
-assert.equal(new Set(catalog.map(t=>t.id)).size,8);
+assert.equal(catalog.filter(t=>t.theme==='drama').length,8);assert.equal(catalog.filter(t=>t.theme==='travel').length,4);
+assert.equal(new Set(catalog.map(t=>t.id)).size,12);
 for(const t of catalog){assert(t.duration>=29.9&&t.duration<=60.1);assert(/^assets\/music-20260927\/[a-z0-9-]+\.m4a$/.test(t.src));assert(fs.statSync(t.src).size>10000)}
 const source=fs.readFileSync('app.js','utf8');
 const start=source.indexOf('async function seedMusicCatalog(){'),end=source.indexOf('let manageSelection=',start);
 const context={window:{ORBIT_MUSIC:catalog},OrbitMusic:M,File,db:{},checkpoint:async()=>{},announce(){},fetch:async()=>({ok:true,blob:async()=>new Blob(['audio'],{type:'audio/mp4'})}),library:[{id:'travel',album:{theme:'travel',music:{name:'旧歌',file:legacyFile}},records:[{note:'出发',image:new Blob(['photo'])}],pendingVideos:[]},{id:'drama',album:{theme:'drama',music:null},records:[],pendingVideos:[]}]};
 vm.createContext(context);vm.runInContext(source.slice(start,end),context);
-(async()=>{await context.seedMusicCatalog();assert.equal(context.library[0].album.playlist.length,5);assert.equal(context.library[0].album.music.file,legacyFile);assert.equal(context.library[1].album.playlist.length,4);assert.equal(context.library[0].records[0].note,'出发');await context.seedMusicCatalog();assert.equal(context.library[0].album.playlist.length,5);
+(async()=>{await context.seedMusicCatalog();assert.equal(context.library[0].album.playlist.length,5);assert.equal(context.library[0].album.music.file,legacyFile);assert.equal(context.library[1].album.playlist.length,8);assert.equal(context.library[0].records[0].note,'出发');await context.seedMusicCatalog();assert.equal(context.library[0].album.playlist.length,5);
 const failed={...context,library:[{id:'drama',album:{theme:'drama'},records:[],pendingVideos:[]}],checkpoint:async()=>{throw Error('quota')}};vm.createContext(failed);vm.runInContext(source.slice(start,end),failed);await assert.rejects(failed.seedMusicCatalog());assert.equal(failed.library[0].album.playlist,undefined);
 const backupContext={File,atob,dataURL:async blob=>'data:'+blob.type+';base64,'+Buffer.from(await blob.arrayBuffer()).toString('base64')};vm.createContext(backupContext);
 vm.runInContext(source.slice(source.indexOf('async function packMusicTracks('),source.indexOf('async function exportBackup(')),backupContext);
@@ -31,5 +31,5 @@ await assert.rejects(backupContext.unpackMusicTracks({version:6,playlist:[...pac
 await assert.rejects(backupContext.unpackMusicTracks({version:6,playlist:Array(61).fill(packed[0])}));
 const change={...context,library:[{id:'drama',album:{theme:'drama',music:{id:'villain-march',file:legacyFile},playlist:[{id:'villain-march',file:legacyFile},{id:'amazon',file:legacyFile},{id:'personal',file:legacyFile,name:'我的上传'}]},records:[],pendingVideos:[]}]};vm.createContext(change);vm.runInContext(source.slice(start,end),change);await change.seedMusicCatalog();assert(!change.library[0].album.playlist.some(t=>t.id==='villain-march'));assert(change.library[0].album.playlist.some(t=>t.id==='personal'));assert(!change.library[0].album.playlist.some(t=>t.id==='amazon'));assert.notEqual(change.library[0].album.music?.id,'amazon');assert.notEqual(change.library[0].album.music?.id,'villain-march');
 console.log('PASS: playlist backup round-trip, legacy backup, invalid URL, duplicate IDs and excess tracks rejected.');
-console.log('PASS: 8 valid clips; legacy music preserved; theme isolation; idempotent seed; backup failure stops import; shuffle cycles without consecutive repetition; empty/single/sequential playlists.');
+console.log('PASS: 12 valid clips; legacy music preserved; theme isolation; idempotent seed; backup failure stops import; shuffle cycles without consecutive repetition; empty/single/sequential playlists.');
 })().catch(e=>{console.error(e);process.exitCode=1});

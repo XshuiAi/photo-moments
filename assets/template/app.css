@@ -147,3 +147,5 @@ footer .hint{display:block;max-width:180px;font-size:10px;line-height:1.8;text-w
 .photo-details:has(#photo-editor:not([hidden])){max-height:30vh}
 #viewer:has(#photo-editor:not([hidden])){overflow:auto;max-height:calc(100dvh - 60px)}
 @media(max-width:600px){#my-orbits{font-size:11px}#viewer{max-width:calc(100vw - 80px)}#close-viewer{right:10px;top:8px}.viewer-toolbar{gap:6px}.viewer-music{gap:8px}}
+
+#pending-list{list-style:none;padding:0;display:grid;gap:18px}.pending-card{padding:14px;border:1px solid #dadfd5;border-radius:14px}.pending-card video{width:100%;max-height:220px;background:#191c19;border-radius:8px}.pending-card p{overflow-wrap:anywhere;font-size:12px}.pending-card select{width:100%;margin:8px 0}.pending-card .text-button{margin-left:14px}

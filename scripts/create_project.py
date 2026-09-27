@@ -58,7 +58,7 @@ def create(name):
         with target.open('xb') as f:
             f.write(data)
     with (stage / '.photo-moments-output.json').open('x') as f:
-        json.dump({'tool': 'photo-moments', 'version': '1.0.2'}, f)
+        json.dump({'tool': 'photo-moments', 'version': '1.0.3'}, f)
     # Reserve the destination exclusively. Never rename over an existing directory.
     dest.mkdir()
     for child in stage.iterdir():
