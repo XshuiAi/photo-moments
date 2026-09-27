@@ -1,18 +1,5 @@
 [
   {
-    "id": "amazon",
-    "name": "Amazon",
-    "theme": "drama",
-    "src": "assets/music-20260927/amazon-digital-highlight-v3.m4a",
-    "duration": 40.0,
-    "kind": "高潮循环",
-    "artist": "",
-    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
-    "sourceStart": 60.05,
-    "sourceLength": 5.2,
-    "revision": "digital-highlight-v3"
-  },
-  {
     "id": "toji-march",
     "name": "伏黑甚尔进行曲",
     "theme": "drama",

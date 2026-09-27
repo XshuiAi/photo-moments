@@ -52,13 +52,14 @@ function axisRotation(axis,angle){const k=Math.sin(angle/2);return [...axis.map(
 function rotatePoint(p){const [x,y,z,w]=orientation,tx=2*(y*p[2]-z*p[1]),ty=2*(z*p[0]-x*p[2]),tz=2*(x*p[1]-y*p[0]);return [p[0]+w*tx+y*tz-z*ty,p[1]+w*ty+z*tx-x*tz,p[2]+w*tz+x*ty-y*tx]}
 function trackball(x,y){const dx=(x-innerWidth/2)/(R*1.15),dy=(y-innerHeight/2)/(R*1.15),d=dx*dx+dy*dy,z=d<=.5?Math.sqrt(1-d):.5/Math.sqrt(d),len=Math.hypot(dx,dy,z);return [dx/len,dy/len,z/len]}
 rotateBy(axisRotation([0,1,0],.25));rotateBy(axisRotation([1,0,0],-.12));
+function sizePhoto(ratio){const h=Math.max(140,innerHeight-170),w=innerWidth-(innerWidth<=600?80:120);enlarged.style.width=Math.min(w,h*ratio,1600)+'px'}
 function showPhotoCard(c){
  stopLive();activeRecord=c.record;returnFocus=c.el;viewer.classList.toggle('wide',c.wide);
  const original=document.querySelector('#photo-original'),asset=c.record.demo?demoAsset(c.record):null;
  original.hidden=!!asset?.style;
  if(asset?.style){original.removeAttribute('src');for(const key of ['backgroundImage','backgroundSize','backgroundPosition'])enlarged.style[key]=asset.style[key]}
  else{enlarged.style.backgroundImage='none';original.alt=c.record.name;original.src=photoSource(c.record)}
- enlarged.style.aspectRatio=String(c.record.ratio);enlarged.style.width=Math.min(innerWidth*.78,innerHeight*.54*c.record.ratio,820)+'px';enlarged.setAttribute('aria-label',c.record.name);
+ enlarged.style.aspectRatio=String(c.record.ratio);sizePhoto(c.record.ratio);enlarged.setAttribute('aria-label',c.record.name);
  document.querySelector('#photo-editor').hidden=true;renderPhotoDetails();
  document.querySelector('#photo-position').textContent=(records.indexOf(c.record)+1)+' / '+records.length;
  for(const id of ['#photo-prev','#photo-next'])document.querySelector(id).disabled=records.length<2;
@@ -90,7 +91,7 @@ viewer.addEventListener('click',e=>{if(e.target===viewer)closePhoto()});
 let statusTimer;
 function announce(s){clearTimeout(statusTimer);statusEl.textContent=s;const panel=[...document.querySelectorAll('.panel')].filter(d=>d.open).at(-1);if(panel){let notice=panel.querySelector('.dialog-feedback');if(!notice){notice=document.createElement('p');notice.className='dialog-feedback feedback';notice.setAttribute('role','status');panel.append(notice)}notice.textContent=s}statusTimer=setTimeout(()=>statusEl.textContent='',5000)}
 function syncPause(){pauseBtn.textContent=paused?'继续':'暂停';pauseBtn.setAttribute('aria-label',paused?'继续旋转':'暂停旋转');pauseBtn.setAttribute('aria-pressed',String(paused))}
-function resize(){if(activeRecord)enlarged.style.width=Math.min(innerWidth*.86,innerHeight*.56*activeRecord.ratio,820)+'px';R=Math.min(innerWidth*.325,innerHeight*.325);for(const c of cards){let h=R*.49,w=h*c.record.ratio;if(c.wide){w=R*.61;h=w/c.record.ratio}c.w=w;c.h=h;c.el.style.width=w+'px';c.el.style.height=h+'px'}layoutSpread();requestFrame()}
+function resize(){if(activeRecord)sizePhoto(activeRecord.ratio);R=Math.min(innerWidth*.325,innerHeight*.325);for(const c of cards){let h=R*.49,w=h*c.record.ratio;if(c.wide){w=R*.61;h=w/c.record.ratio}c.w=w;c.h=h;c.el.style.width=w+'px';c.el.style.height=h+'px'}layoutSpread();requestFrame()}
 function smooth(t){return t*t*(3-2*t)}
 function slerp(a,b,t){let dot=Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2]));if(dot>.9995){const v=a.map((n,i)=>n+(b[i]-n)*t),l=Math.hypot(...v);return v.map(n=>n/l)}if(dot<-.9995){let axis=Math.abs(a[0])<.8?[1,0,0]:[0,1,0];let d=a.reduce((s,n,i)=>s+n*axis[i],0);let p=axis.map((n,i)=>n-a[i]*d),l=Math.hypot(...p);return a.map((n,i)=>n*Math.cos(Math.PI*t)+p[i]/l*Math.sin(Math.PI*t))}const theta=Math.acos(dot),den=Math.sin(theta);return a.map((n,i)=>(n*Math.sin((1-t)*theta)+b[i]*Math.sin(t*theta))/den)}
 function shuffle(){if(shuffleStart!==null||!loaded||viewer.open||pointer||spread>0||spreadTarget)return;let order=Array.from({length:N},(_,i)=>i);for(let i=N-1;i>0;i--){const j=Math.floor(Math.random()*i);[order[i],order[j]]=[order[j],order[i]]}from=current.map(v=>v.slice());destination=order.map(i=>destination[i]);shuffleStart=performance.now();shuffleCount++;shuffleBtn.setAttribute('aria-disabled','true');requestFrame()}
@@ -219,7 +220,7 @@ function urlFor(blob){if(!blob)return '';if(!objectURLs.has(blob))objectURLs.set
 function resume(){lastTime=0;requestFrame()}
 for(const d of document.querySelectorAll('.panel'))d.addEventListener('close',resume);
 function safeOpen(d){const n=d.querySelector('.dialog-feedback');if(n)n.textContent='';if(!d.open)d.showModal()}
-function refreshMeta(){usingDemo=records.length>0&&records.every(r=>r.demo);document.body.dataset.theme=album.theme||'travel';$('#empty-orbit').hidden=records.length>0;$('#empty-title').textContent='把第一张'+(album.theme==='drama'?'收藏':'照片')+'放进来';$('#empty-description').textContent=album.theme==='drama'?'男女主、喜欢的场景，都可以收藏在这里。':'照片、音乐和心情，只属于这个照片球。';$('#scatter').disabled=!records.length;const name=album.title||'我的旅行';$('#owner-name').firstChild.textContent=(album.owner||'SHERRY小水')+' ';$('#owner-input').value=album.owner||'SHERRY小水';$('#album-title').firstChild.textContent=name;$('#album-subtitle').textContent=usingDemo?(album.theme==='drama'?(records.some(r=>r.assetId?.startsWith('selected-'))?'我的精选 · 人物壁纸':'首组案例 · 男女主与场景'):'先逛逛，再换成你的照片。'):`${records.filter(r=>!r.demo).length} 张回忆 · ${records.filter(r=>r.demo).length} 张示例`;$('#album-count').textContent=usingDemo?(album.theme==='drama'?'人物收藏 · '+records.length+' 张':records.length+' 张旅行示例'):`${records.length} 张照片 · ${records.filter(r=>r.video).length} 张实况`;$('#title-input').value=album.title||'';$('#pending-area').hidden=pendingVideos.length===0;$('#pending-list').replaceChildren();for(const p of pendingVideos){const li=document.createElement('li');li.textContent=p.name;$('#pending-list').append(li)}}
+function refreshMeta(){usingDemo=records.length>0&&records.every(r=>r.demo);document.body.dataset.theme=album.theme||'travel';$('#empty-orbit').hidden=records.length>0;$('#empty-title').textContent='把第一张'+(album.theme==='drama'?'收藏':'照片')+'放进来';$('#empty-description').textContent=album.theme==='drama'?'男女主、喜欢的场景，都可以收藏在这里。':'照片、音乐和心情，只属于这个照片球。';$('#scatter').disabled=!records.length;const name=album.title||'我的旅行';$('#owner-name').firstChild.textContent=(album.owner||'SHERRY小水')+' ';$('#owner-input').value=album.owner||'SHERRY小水';$('#album-title').textContent=name;$('#album-count').textContent=usingDemo?(album.theme==='drama'?'人物收藏 · '+records.length+' 张':records.length+' 张旅行示例'):`${records.length} 张照片 · ${records.filter(r=>r.video).length} 张实况`;$('#title-input').value=album.title||'';$('#pending-area').hidden=pendingVideos.length===0;$('#pending-list').replaceChildren();for(const p of pendingVideos){const li=document.createElement('li');li.textContent=p.name;$('#pending-list').append(li)}}
 function setRecordStyle(el,r){if(r.demo){for(const k of ['backgroundImage','backgroundSize','backgroundPosition'])el.style[k]=r.style[k]}else{el.style.backgroundImage=`url("${urlFor(r.image)}")`;el.style.backgroundSize='100% 100%';el.style.backgroundPosition='center'}}
 function badge(c){c.el.classList.toggle('has-note',!!c.record.note);c.el.querySelector('.live-badge')?.remove();if(c.record.video){const span=document.createElement('span');span.className='live-badge';span.textContent='◎ LIVE';c.el.append(span)}c.el.setAttribute('aria-label',`${c.record.name}${c.record.video?'，实况照片':''}，点击放大查看`)}
 function rebuild(){scene.replaceChildren();N=records.length;slots=Array.from({length:N},(_,i)=>{const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y);return [r*Math.cos(golden*i),y,r*Math.sin(golden*i)]});destination=Array.from({length:N},(_,i)=>i);from=slots.map(v=>v.slice());current=slots.map(v=>v.slice());shuffleStart=null;shuffleBtn.removeAttribute('aria-disabled');spreadTween=null;spread=spreadTarget=0;galleryY=0;cards=records.map(r=>{const el=document.createElement('button');el.type='button';el.className='photo';setRecordStyle(el,r);const c={el,record:r,wide:r.ratio>1,w:0,h:0};badge(c);scene.append(el);return c});loaded=true;refreshMeta();resize();syncSpread();syncPause()}
@@ -412,15 +413,16 @@ $('#music-file').addEventListener('change',async e=>{
  }finally{$('#music-add').disabled=false}
 });
 async function seedMusicCatalog(){
+ const retired=new Set(['villain-march','amazon']);
  const catalog=window.ORBIT_MUSIC||[],targets=library.filter(o=>['travel','drama'].includes(o.id));
  if(!catalog.length)return;
- const needsUpdate=targets.some(o=>o.album.music?.id==='villain-march'||(o.album.playlist||[]).some(t=>t.id==='villain-march')||catalog.some(t=>t.theme===o.album.theme&&!(o.album.playlist||[]).some(p=>p.id===t.id&&p.revision===t.revision)));
+ const needsUpdate=targets.some(o=>retired.has(o.album.music?.id)||(o.album.playlist||[]).some(t=>retired.has(t.id))||catalog.some(t=>t.theme===o.album.theme&&!(o.album.playlist||[]).some(p=>p.id===t.id&&p.revision===t.revision)));
  if(!needsUpdate)return;
  if(db)await checkpoint('before-music-refinement-20260927');
  let failed=0;
  for(const orbit of targets){
-  orbit.album.playlist=OrbitMusic.normalize(orbit.album).filter(t=>t.id!=='villain-march');
-  if(orbit.album.music?.id==='villain-march')orbit.album.music=null;
+  orbit.album.playlist=OrbitMusic.normalize(orbit.album).filter(t=>!retired.has(t.id));
+  if(retired.has(orbit.album.music?.id))orbit.album.music=null;
   const tracks=orbit.album.playlist;
   for(const entry of catalog.filter(t=>t.theme===orbit.album.theme)){
    const oldIndex=tracks.findIndex(t=>t.id===entry.id);if(oldIndex>=0&&tracks[oldIndex].revision===entry.revision)continue;
@@ -469,7 +471,10 @@ document.querySelector('#delete-photo').addEventListener('click',async()=>{
 document.querySelector('#manage-open').addEventListener('click',()=>openManage());
 document.querySelector('#manage-all').addEventListener('click',()=>{if(managing)return;manageSelection=manageSelection.size===records.length?new Set():new Set(records.map(r=>r.id));renderManage()});
 document.querySelector('#manage-action').addEventListener('click',()=>deletePhotos([...manageSelection]));
-function openSettings(){refreshMeta();safeOpen($('#settings-dialog'))}$('#my-orbits').addEventListener('click',openLibrary);$('#new-orbit-form').addEventListener('submit',createOrbit);$('#new-orbit-name').addEventListener('input',()=>$('#new-orbit-name').setCustomValidity(''));$('#empty-add').addEventListener('click',()=>beginImport());$('#save-title').addEventListener('click',async()=>{album.owner=$('#owner-input').value.trim()||'SHERRY小水';album.title=$('#title-input').value.trim()||'我的旅行';refreshMeta();await save();$('#settings-dialog').close()});
+function openSettings(){refreshMeta();safeOpen($('#settings-dialog'))}$('#my-orbits').addEventListener('click',openLibrary);
+$('#album-title').addEventListener('click',()=>{$('#rename-input').value=album.title||'我的旅行';safeOpen($('#rename-dialog'));$('#rename-input').focus();$('#rename-input').select()});
+$('#cancel-rename').addEventListener('click',()=>$('#rename-dialog').close());
+$('#rename-form').addEventListener('submit',async e=>{e.preventDefault();const title=$('#rename-input').value.trim();if(!title){$('#rename-input').focus();return}album.title=title;refreshMeta();if(await save()){$('#rename-dialog').close();$('#album-title').focus()}});$('#new-orbit-form').addEventListener('submit',createOrbit);$('#new-orbit-name').addEventListener('input',()=>$('#new-orbit-name').setCustomValidity(''));$('#empty-add').addEventListener('click',()=>beginImport());$('#save-title').addEventListener('click',async()=>{album.owner=$('#owner-input').value.trim()||'SHERRY小水';album.title=$('#title-input').value.trim()||'我的旅行';refreshMeta();await save();$('#settings-dialog').close()});
 $('#owner-name').addEventListener('click',()=>{openSettings();$('#owner-input').focus()});
 $('#save-owner').addEventListener('click',async()=>{album.owner=$('#welcome-name').value.trim()||'SHERRY小水';album.onboarded=true;refreshMeta();await save();$('#welcome-dialog').close()});
 const dataURL=blob=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob)});
@@ -518,7 +523,7 @@ async function initialize(){
  try{await seedMusicCatalog();activateOrbit(library.find(o=>o.id===activeOrbitId)||library[0]);}catch{announce('音乐导入前备份失败，原歌单已保留')}
  $('#import-date').value=today();rebuild();loadMusic();
  if(db)await save();
- announce(migrated?'旅行选图已恢复 · 在「我的照片球」切换不同主题':'在「我的照片球」切换主题，也可以新建');
+ announce(migrated?'旅行选图已恢复 · 在「Photo Moments ⌄」切换不同主题':'在「Photo Moments ⌄」切换主题，也可以新建');
  if(!album.onboarded)safeOpen($('#welcome-dialog'));
 }
 initialize();

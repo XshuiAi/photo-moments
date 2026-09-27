@@ -1,1 +1,99 @@
-window.ORBIT_MUSIC = [{"id": "amazon", "name": "Amazon", "theme": "drama", "src": "assets/music-20260927/amazon-digital-highlight-v3.m4a", "duration": 40.0, "kind": "高潮循环", "artist": "", "sourceURL": "https://www.douyin.com/video/7668969513057231083", "sourceStart": 60.05, "sourceLength": 5.2, "revision": "digital-highlight-v3"}, {"id": "toji-march", "name": "伏黑甚尔进行曲", "theme": "drama", "src": "assets/music-20260927/toji-march.m4a", "duration": 40.0, "kind": "循环片段", "artist": "", "sourceURL": "https://www.douyin.com/video/7668969513057231083", "sourceStart": 83, "sourceLength": 20}, {"id": "cage", "name": "囚笼", "theme": "drama", "src": "assets/music-20260927/cage.m4a", "duration": 40.0, "kind": "循环片段", "artist": "", "sourceURL": "https://www.douyin.com/video/7668969513057231083", "sourceStart": 114, "sourceLength": 18}, {"id": "primrose", "name": "樱花草", "theme": "drama", "src": "assets/music-20260927/primrose.m4a", "duration": 40.0, "kind": "循环片段", "artist": "", "sourceURL": "https://www.douyin.com/video/7668969513057231083", "sourceStart": 141, "sourceLength": 17}, {"id": "illusion-5", "name": "幻昼 5.0", "theme": "drama", "src": "assets/music-20260927/illusion-5.m4a", "duration": 40.0, "kind": "循环片段", "artist": "", "sourceURL": "https://www.douyin.com/video/7668969513057231083", "sourceStart": 164, "sourceLength": 16}, {"id": "jiggy-boogy", "name": "Jiggy Boogy", "theme": "travel", "src": "assets/music-20260927/jiggy-boogy.m4a", "duration": 30.0, "kind": "官方试听", "artist": "study group", "sourceURL": "https://music.apple.com/us/album/jiggy-boogy/1820854133?i=1820854136", "sourceStart": 0, "sourceLength": 30}, {"id": "jelly-fish", "name": "Jelly Fish", "theme": "travel", "src": "assets/music-20260927/jelly-fish.m4a", "duration": 29.97, "kind": "官方试听", "artist": "Chillpeach", "sourceURL": "https://music.apple.com/us/song/1689045588", "sourceStart": 0, "sourceLength": 29.97}, {"id": "dont-waste-my-time", "name": "Don't Waste My Time", "theme": "travel", "src": "assets/music-20260927/dont-waste-my-time-clean-v2.m4a", "duration": 60.0, "kind": "原曲片段", "artist": "Victor Lundberg", "sourceURL": "https://www.epidemicsound.com/music/tracks/2d516c07-08ea-4393-9fa8-fff269ce613c/", "sourceStart": 0.6, "sourceLength": 60, "revision": "original-preview-v2"}, {"id": "practical-joke", "name": "恶作剧", "theme": "travel", "src": "assets/music-20260927/practical-joke.m4a", "duration": 30.0, "kind": "官方试听", "artist": "王蓝茵", "sourceURL": "https://music.apple.com/us/album/惡作劇/1442199094?i=1442199265", "sourceStart": 0, "sourceLength": 30}];
+window.ORBIT_MUSIC = [
+  {
+    "id": "toji-march",
+    "name": "伏黑甚尔进行曲",
+    "theme": "drama",
+    "src": "assets/music-20260927/toji-march.m4a",
+    "duration": 40.0,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
+    "sourceStart": 83,
+    "sourceLength": 20
+  },
+  {
+    "id": "cage",
+    "name": "囚笼",
+    "theme": "drama",
+    "src": "assets/music-20260927/cage.m4a",
+    "duration": 40.0,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
+    "sourceStart": 114,
+    "sourceLength": 18
+  },
+  {
+    "id": "primrose",
+    "name": "樱花草",
+    "theme": "drama",
+    "src": "assets/music-20260927/primrose.m4a",
+    "duration": 40.0,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
+    "sourceStart": 141,
+    "sourceLength": 17
+  },
+  {
+    "id": "illusion-5",
+    "name": "幻昼 5.0",
+    "theme": "drama",
+    "src": "assets/music-20260927/illusion-5.m4a",
+    "duration": 40.0,
+    "kind": "循环片段",
+    "artist": "",
+    "sourceURL": "https://www.douyin.com/video/7668969513057231083",
+    "sourceStart": 164,
+    "sourceLength": 16
+  },
+  {
+    "id": "jiggy-boogy",
+    "name": "Jiggy Boogy",
+    "theme": "travel",
+    "src": "assets/music-20260927/jiggy-boogy.m4a",
+    "duration": 30.0,
+    "kind": "官方试听",
+    "artist": "study group",
+    "sourceURL": "https://music.apple.com/us/album/jiggy-boogy/1820854133?i=1820854136",
+    "sourceStart": 0,
+    "sourceLength": 30
+  },
+  {
+    "id": "jelly-fish",
+    "name": "Jelly Fish",
+    "theme": "travel",
+    "src": "assets/music-20260927/jelly-fish.m4a",
+    "duration": 29.97,
+    "kind": "官方试听",
+    "artist": "Chillpeach",
+    "sourceURL": "https://music.apple.com/us/song/1689045588",
+    "sourceStart": 0,
+    "sourceLength": 29.97
+  },
+  {
+    "id": "dont-waste-my-time",
+    "name": "Don't Waste My Time",
+    "theme": "travel",
+    "src": "assets/music-20260927/dont-waste-my-time-clean-v2.m4a",
+    "duration": 60.0,
+    "kind": "原曲片段",
+    "artist": "Victor Lundberg",
+    "sourceURL": "https://www.epidemicsound.com/music/tracks/2d516c07-08ea-4393-9fa8-fff269ce613c/",
+    "sourceStart": 0.6,
+    "sourceLength": 60,
+    "revision": "original-preview-v2"
+  },
+  {
+    "id": "practical-joke",
+    "name": "恶作剧",
+    "theme": "travel",
+    "src": "assets/music-20260927/practical-joke.m4a",
+    "duration": 30.0,
+    "kind": "官方试听",
+    "artist": "王蓝茵",
+    "sourceURL": "https://music.apple.com/us/album/惡作劇/1442199094?i=1442199265",
+    "sourceStart": 0,
+    "sourceLength": 30
+  }
+];

@@ -135,3 +135,15 @@ footer .hint{display:block;max-width:180px;font-size:10px;line-height:1.8;text-w
 @media(max-width:900px){footer .hint{display:block;max-width:128px;font-size:9px}footer .music-tools{left:50%;right:auto;transform:translateX(-50%)}footer .music-tools #music-random{padding-inline:12px}}
 @media(max-width:620px){footer.chrome{padding-bottom:78px}.signature{max-width:55%}footer .hint{max-width:42%;font-size:9px}footer .music-tools{bottom:14px;left:50%;right:auto;transform:translateX(-50%)}#music-dialog{bottom:78px}#status{bottom:135px}}
 @media(prefers-reduced-motion:reduce){#music-dialog[open]{animation:none}}
+
+/* Larger photo presentation and editable collection heading. */
+#my-orbits{font-size:12px;letter-spacing:.05em;color:#757575;padding-bottom:5px}
+#album-title{display:block;border:0;background:none;padding:0;text-align:left;cursor:pointer;max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#album-title:hover{opacity:.65}#album-title:focus-visible{outline:1px solid;outline-offset:5px}
+#viewer{max-width:calc(100vw - 80px);max-height:calc(100dvh - 60px)}
+#enlarged,#viewer.wide #enlarged{max-height:none}
+#close-viewer{position:fixed;right:20px;top:12px;background:#ffffff12;border-radius:50%;z-index:4}
+.viewer-toolbar{margin-top:9px}.photo-details{margin-top:8px;max-height:78px;min-width:0}
+.photo-details:has(#photo-editor:not([hidden])){max-height:30vh}
+#viewer:has(#photo-editor:not([hidden])){overflow:auto;max-height:calc(100dvh - 60px)}
+@media(max-width:600px){#my-orbits{font-size:11px}#viewer{max-width:calc(100vw - 80px)}#close-viewer{right:10px;top:8px}.viewer-toolbar{gap:6px}.viewer-music{gap:8px}}
