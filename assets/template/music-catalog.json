@@ -150,5 +150,15 @@
     "sourceLength": 14,
     "sourceNumber": 6,
     "revision": "user-link-20260928"
+  },
+  {
+    "id": "two-sides",
+    "name": "双面硬币",
+    "theme": "travel",
+    "src": "assets/music-20260927/two-sides.m4a",
+    "kind": "用户提供",
+    "artist": "",
+    "revision": "public-20260928",
+    "duration": 199.88
   }
 ]

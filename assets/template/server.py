@@ -43,6 +43,17 @@ for track in json.loads((ROOT / "music-catalog.json").read_text()):
         raise ValueError("Unexpected music asset path")
     STATIC["/" + name] = name
 
+STATIC["/public-samples.js"] = "public-samples.js"
+for sample in json.loads((ROOT / "public-samples.json").read_text()):
+    for key in ("image", "video"):
+        name = sample.get(key)
+        if not name:
+            continue
+        p = Path(name)
+        if len(p.parts) != 3 or p.parts[:2] != ("assets", "public-samples") or p.suffix not in (".jpg", ".png", ".mp4") or ".." in p.parts:
+            raise ValueError("Unexpected public sample path")
+        STATIC["/" + name] = name
+
 class Handler(BaseHTTPRequestHandler):
     def reply(self, status, body, kind="application/json"):
         self.send_response(status)

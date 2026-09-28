@@ -1,3 +1,12 @@
+# 2026-09-28 公开样例验收
+
+- `python3 -m unittest discover -s tests -v`：8 项路径、符号链接、已有目录、失败及中断保护测试通过。
+- 在 `assets/template` 运行 `node verify.cjs`、`node verify-library.cjs`、`node verify-music.cjs`、`node verify-photo-management.cjs`、`node verify-live.cjs`、`node verify-public-samples.cjs`：通过。旅行音乐期望更新为5首，人物8首。
+- 浏览器全新存储首次载入：人物39张、3组实况；IMG_1244样例视频2.878秒、readyState=4、播放中、未静音。
+- 公开样例加载失败不写入半成品；现有相册不重复补回；新建custom相册保持空白。
+- 静态复核：新增素材路径固定在assets/public-samples，目录及类型白名单；无shell命令插值、删除或上传个人相册逻辑。
+- 用户在了解两脚本用途后明确授权公开当前照片、实况及音乐样例。本次依照该明确授权公开；不将AI复核声称为独立人工代码复核。
+
 # V1 测试记录
 
 ## 2026-09-28 更新验证

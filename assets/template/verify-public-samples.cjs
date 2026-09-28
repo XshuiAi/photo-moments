@@ -1,0 +1,8 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const entries=JSON.parse(fs.readFileSync(__dirname+'/public-samples.json'));
+assert.equal(entries.length,4);assert.equal(entries.filter(e=>e.video).length,3);
+for(const e of entries)for(const k of ['image','video'])if(e[k])assert(fs.statSync(__dirname+'/'+e[k]).size>1000);
+const code=fs.readFileSync(__dirname+'/app.js','utf8');const helper=code.slice(code.indexOf('async function seedPublicSamples('),code.indexOf('async function initialize('));
+const context={window:{ORBIT_PUBLIC_SAMPLES:entries},File,stem:n=>n,fingerprint:async()=> 'hash',fetch:async()=>({ok:true,blob:async()=>new Blob(['media'])})};vm.createContext(context);vm.runInContext(helper,context);
+(async()=>{const orbits=[{id:'travel',album:{theme:'travel'},records:Array(78).fill({})},{id:'drama',album:{theme:'drama'},records:Array(36).fill({})},{id:'custom',album:{theme:'custom'},records:[]}];await context.seedPublicSamples(orbits);assert.equal(orbits[0].records.length,79);assert.equal(orbits[1].records.length,39);assert.equal(orbits[1].records.filter(r=>r.video instanceof File).length,3);assert.equal(orbits[2].records.length,0);
+context.fetch=async()=>({ok:false});const empty=[{id:'drama',album:{theme:'drama'},records:[]}];await assert.rejects(context.seedPublicSamples(empty));assert.equal(empty[0].records.length,0,'failed loading must not partially mutate albums');assert(code.includes('if(!state){\n  try{await seedPublicSamples(library)'),'existing state must not be reseeded');console.log('PASS: public samples 79/39, 3 Live files, empty custom album, atomic failure, first-visit-only seed');})().catch(e=>{console.error(e);process.exitCode=1});
